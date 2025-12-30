@@ -1,4 +1,4 @@
-# gelboorcaller
+# Booru MCP 
 
 To install dependencies:
 
