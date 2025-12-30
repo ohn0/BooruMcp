@@ -1,0 +1,14 @@
+{
+    "gelbooru" : {
+        "API_KEY" : "YOUR_API_KEY_HERE",
+        "USER_ID" : "YOUR_USER_ID_HERE"   
+    },
+    "danbooru" : {
+        "API_KEY" : "YOUR_API_KEY_HERE",
+        "USER_ID" : "YOUR_USER_ID_HERE"    
+    },
+    "rule34" : {
+        "API_KEY" : "YOUR_API_KEY_HERE",
+        "USER_ID" : "YOUR_USER_ID_HERE"
+    }
+}
