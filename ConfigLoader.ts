@@ -10,6 +10,6 @@ export class ConfigLoader {
     }
 
     public async retrieveConfiguration(key : string){
-        return await this.configFile.json()[key];
-    }
+        let keyConfig = await this.configFile.json();
+        return keyConfig[key];}
 }

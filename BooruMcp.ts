@@ -5,9 +5,9 @@ import type { Request, Response } from "express";
 import { GelbooruCaller } from "./GelbooruCaller";
 import * as z from 'zod/v4';
 import { ConfigLoader } from "./ConfigLoader";
-const getServer = () => {
+const getServer = async () => {
     let config : any = new ConfigLoader();
-    let gelbooruConfig = config.retrieveConfiguration("gelbooru");
+    let gelbooruConfig = await config.retrieveConfiguration("gelbooru");
     const server = new McpServer({
         name: "simple-server",
         version: "1.0.0"
@@ -41,6 +41,7 @@ const getServer = () => {
             }
         },
         async ({tags},extra) => {
+            console.log(gelbooruConfig);
             let caller = new GelbooruCaller(gelbooruConfig);
             var response = (await caller.call(tags)).text();
             console.log((await response).toString);
@@ -72,14 +73,13 @@ const getServer = () => {
 const app = createMcpExpressApp();
 
 app.post('/mcp', async(req: Request, res: Response) => {
-    const server = getServer();
+    const server = await getServer();
     try {
         const transport: StreamableHTTPServerTransport = new StreamableHTTPServerTransport({ sessionIdGenerator : undefined});
         await server.connect(transport);
         await transport.handleRequest(req, res, req.body);
 
         res.on('close', () => {
-            console.log("closing");
             transport.close();
             server.close();
         });
@@ -103,7 +103,7 @@ app.get('/mcp', async (req: Request, res: Response) => {
     );
 });
 
-const PORT = 3000;
+const PORT = 4588;
 app.listen(PORT, (error: any) => {
     if (error) console.error('error', error)
     console.log('listening');}
